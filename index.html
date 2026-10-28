@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Laika The Spacecat! &lt;3</title>
+  
+  <!-- Pixel & Clean Cozy Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Clean Top HUD -->
+  <header class="hud-top">
+    <div class="hud-brand">
+      <span class="hud-title hud-title-full">🚀 LAIKA THE SPACECAT! &lt;3</span>
+      <span class="hud-title hud-title-short">🚀 LAIKA &lt;3</span>
+    </div>
+    <div class="hud-buttons">
+      <button id="btn-audio" class="pixel-btn sm" title="Toggle 8-bit Music & SFX">
+        🎵 <span class="bgm-label">BGM: </span><span id="audio-status">OFF</span>
+      </button>
+      <button id="btn-minigame-toggle" class="pixel-btn sm" title="Play Mini-Game">
+        🎮 <span class="btn-text-full">Mini-Game</span><span class="btn-text-short">Game</span>
+      </button>
+      <button id="btn-letters-toggle" class="pixel-btn sm" title="Open When Letters">
+        💌 <span class="btn-text-full">Letters</span><span class="btn-text-short">Mail</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Space Flight Canvas -->
+  <main id="game-container">
+    <canvas id="space-canvas"></canvas>
+
+    <!-- Flight Touch Guide Banner -->
+    <div id="flight-tutorial" class="flight-tutorial">
+      <span class="tutorial-full">🚀 Touch &amp; drag anywhere to fly • Explore our 5 memory planets ✨</span>
+      <span class="tutorial-short">🚀 Touch &amp; drag anywhere to fly ✨</span>
+    </div>
+
+    <!-- Cockpit Status Bar -->
+    <div id="cockpit-bar">
+      <div class="co-pilot-card" id="space-cat-card" title="Click me for a sweet meow">
+        <div class="avatar-box">
+          <div class="cat-avatar">🐱</div>
+          <div class="helmet-ring"></div>
+        </div>
+        <div class="pilot-info">
+          <div class="pilot-title">CAPTAIN</div>
+          <div class="pilot-name">Laika <span class="tag">Spacecat</span></div>
+          <div class="pilot-mood" id="cat-bubble">Meow! Ready for launch :3</div>
+        </div>
+      </div>
+
+      <div class="mission-status-box">
+        <div class="status-label">CURRENT COORDINATES</div>
+        <div class="status-value" id="current-location">Earth Orbit - Launch Pad</div>
+        <div class="progress-bar-container">
+          <div class="progress-fill" id="journey-progress" style="width: 20%;"></div>
+        </div>
+        <div class="touch-guide-hint">✦ Touch &amp; drag anywhere to steer our rocket 🚀</div>
+      </div>
+    </div>
+
+    <!-- Quick Land Button (Visible when near a planet) -->
+    <div id="land-action-container" class="land-prompt-box hidden">
+      <button id="btn-quick-land" class="pixel-btn primary pulse-btn">
+        🚀 Tap to Land!
+      </button>
+    </div>
+  </main>
+
+  <!-- MODAL: Planet Milestone Encounter -->
+  <div id="planet-modal" class="modal-overlay hidden">
+    <div class="modal-card pixel-box">
+      <button class="modal-close" id="btn-close-planet">✖</button>
+      <div class="modal-header">
+        <span class="planet-avatar" id="modal-planet-icon">🪐</span>
+        <div>
+          <span class="badge" id="modal-planet-badge">Orbit 1</span>
+          <h2 id="modal-planet-title">Planet Title</h2>
+        </div>
+      </div>
+      
+      <div class="modal-body">
+        <div class="memory-card">
+          <div class="polaroid-frame">
+            <div class="pixel-art-preview" id="modal-pixel-art"></div>
+            <div class="polaroid-caption" id="modal-polaroid-caption">Memory with Laika</div>
+          </div>
+          <div class="memory-text-container">
+            <h4 class="memory-summary" id="modal-planet-summary">Summary</h4>
+            <p class="memory-story" id="modal-planet-story">Story text goes here...</p>
+            <blockquote class="memory-quote" id="modal-planet-quote">Quote</blockquote>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="pixel-btn primary" id="btn-collect-star">⭐ Collect Memory Star</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: The 5th Monthiversary Grand Celebration (POV: Cardboard Sign Tribute) -->
+  <div id="celebration-modal" class="modal-overlay hidden">
+    <div class="modal-card pixel-box special-grand">
+      <button class="modal-close" id="btn-close-celebration">✖</button>
+      
+      <div class="grand-header">
+        <span class="badge gold">MISSION OBJECTIVE ACCOMPLISHED</span>
+        <h2>5 incredible months with my favorite Spacecat!</h2>
+      </div>
+
+      <!-- Clean Recreation of the Viral Cardboard Sign Scene -->
+      <div class="banner-scene-container">
+        <div class="pixel-clouds"></div>
+        <div class="pixel-characters-stage">
+          <div class="pixel-char boy">
+            <div class="pixel-hair"></div>
+            <div class="pixel-suit"></div>
+          </div>
+          <div class="pixel-char cat-girl">
+            <div class="pixel-ears">🐱</div>
+            <div class="pixel-suit pink"></div>
+          </div>
+        </div>
+        
+        <div class="pixel-cardboard-sign">
+          <div class="sign-tape tape-left"></div>
+          <div class="sign-tape tape-right"></div>
+          <div class="sign-text">
+            I LOVE U<br>
+            <span class="sub-sign">LAIKA, MY SPACECAT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grand-letter-box">
+        <p>
+          Happy 5th 28, my sweetest Laika! Thank you for being the most loving, brilliant, and precious spacecat in the entire universe. Five months of holding your hand, and honestly, every single day with you still feels like my favorite adventure. Looking back at everything we've been through over these five months, I'm just so proud of us. You are my home, my favorite view in the dark, and my absolute favorite person to stay up late with =) Thank you for filling my universe with so much light, warmth, and laughter. Our voyage has only just begun, and there's no one else I'd rather orbit this life with. I want to explore every next galaxy only with you by my side.
+        </p>
+      </div>
+
+      <div class="grand-actions">
+        <button class="pixel-btn primary big" id="btn-show-letters-direct">💌 Open Special Letters</button>
+        <button class="pixel-btn secondary" id="btn-play-fishgame">🐟 Play Fish Catcher</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Open When Letters Hub -->
+  <div id="letters-modal" class="modal-overlay hidden">
+    <div class="modal-card pixel-box letters-hub">
+      <button class="modal-close" id="btn-close-letters">✖</button>
+      <div class="modal-header">
+        <span class="planet-avatar">📬</span>
+        <div>
+          <span class="badge">Cosmic Mailbox</span>
+          <h2>Open When Letters For Laika 💌</h2>
+        </div>
+      </div>
+      <p class="hub-subtitle">Envelopes sealed with stardust, to open whenever you feel like it:</p>
+
+      <div class="letters-grid" id="letters-list">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Single Open When Letter Reader -->
+  <div id="single-letter-modal" class="modal-overlay hidden">
+    <div class="modal-card letter-paper-box">
+      <button class="modal-close" id="btn-close-single-letter">✖</button>
+      <div class="wax-stamp">🐾</div>
+      <h3 class="letter-title" id="read-letter-title">Letter Title</h3>
+      <div class="letter-content" id="read-letter-body">
+        Letter content...
+      </div>
+      <div class="letter-sign">
+        With all my love,<br>
+        <strong>Rakhel, the Co-Pilot 🚀</strong>
+      </div>
+      <div class="letter-actions" style="margin-top: 20px; text-align: center;">
+        <button id="btn-back-to-letters" class="pixel-btn primary sm">💌 Back to Mailbox</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Mini-Game (Laika's Cosmic Treat Catcher) -->
+  <div id="minigame-modal" class="modal-overlay hidden">
+    <div class="modal-card pixel-box minigame-box">
+      <button class="modal-close" id="btn-close-minigame">✖</button>
+      <div class="minigame-header">
+        <h2>🐟 Laika's Cosmic Treat Catcher</h2>
+        <div class="game-scoreboard">
+          <span>Score: <strong id="game-score">0</strong></span>
+          <span>Best Score: <strong id="game-best-score">0</strong></span>
+          <span>Lives: <span id="game-lives">❤️❤️❤️</span></span>
+        </div>
+      </div>
+      <p class="minigame-instruction">
+        Steer Laika to catch cosmic treats and survive as long as you can! Dodge falling comets ☄️!
+      </p>
+
+      <div class="minigame-canvas-container">
+        <canvas id="catcher-canvas" width="400" height="420"></canvas>
+      </div>
+
+      <div class="minigame-controls">
+        <button class="pixel-btn primary" id="btn-start-catcher">▶ Start Game</button>
+      </div>
+      <div id="catcher-compliment" class="catcher-compliment"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: Secret Easter Egg -->
+  <div id="secret-modal" class="modal-overlay hidden">
+    <div class="modal-card pixel-box easter-box">
+      <button class="modal-close" id="btn-close-secret">✖</button>
+      <div class="secret-emoji">🌌 🐱 ✨</div>
+      <h2>SECRET COSMIC STATION UNLOCKED</h2>
+      <p id="secret-message-text">Secret message...</p>
+      <div class="secret-cat-badge">
+        Love Level for Laika: <span class="infinite-love">9999999% &lt;3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="content.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
