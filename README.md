@@ -1,6 +1,6 @@
 # 🚀 Laika The Spacecat! <3 🐱✨
 
-An interactive retro-pixel space game website made with love by **Rakhel** for **Laika (My Space Cat)** to celebrate their **5th Monthiversary**.
+An interactive retro-pixel space game website made with love by **Rakhel** for **Laika (My Space Cat)** to celebrate our **5th Monthiversary**.
 
 ---
 
